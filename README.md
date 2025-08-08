@@ -36,4 +36,3 @@ Sistema de delivery desenvolvido com Spring Boot e Java 21.
 ## 👨‍💻 Desenvolvedor
 [Diogo Felix] - [TI56 02726]
 Desenvolvido com JDK 21 e Spring Boot 3.5.4
-<img width="341" height="580" alt="image" src="https://github.com/user-attachments/assets/bd7a504b-1426-4bb9-807f-87b994dcf28e" />
