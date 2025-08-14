@@ -2,6 +2,8 @@ package com.deliverytech.delivery_api.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,5 +20,5 @@ public class Cliente {
     private boolean ativo;
 
     @OneToMany(mappedBy = "cliente")
-    private List<Pedido> pedidos;
+    private List<Pedido> pedidos = new ArrayList<>();
 }
