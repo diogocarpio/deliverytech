@@ -3,6 +3,7 @@ package com.deliverytech.delivery_api.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class Cliente {
     private String telefone;
     private String endereco;
     private boolean ativo;
+    private LocalDateTime dataCadastro;
 
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<>();
