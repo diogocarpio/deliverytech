@@ -17,7 +17,7 @@ public class Pedido {
     private Long id;
     private String numeroPedido;
     private LocalDateTime dataPedido;
-    private String status;
+    private StatusPedido status;
     private BigDecimal valorTotal;
     private String observacoes;
 

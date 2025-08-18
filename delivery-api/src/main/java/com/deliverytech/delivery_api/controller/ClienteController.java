@@ -1,8 +1,8 @@
 package com.deliverytech.delivery_api.controller;
 
-import com.deliverytech.delivery_api.model.Cliente;
+import com.deliverytech.delivery_api.dto.ClienteDTO;
+import com.deliverytech.delivery_api.dto.ClienteResponseDTO;
 import com.deliverytech.delivery_api.service.ClienteService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,31 +16,28 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 public class ClienteController {
 
-    @Autowired
-    private ClienteService clienteService;
+    private final ClienteService service;
 
-    /**
-     * Cadastrar novo cliente
-     */
+    // Construtor que recebe a dependência do serviço
+    public ClienteController(ClienteService service) {
+        this.service = service;
+    }
+
+    // Endpoint POST para cadastrar um novo cliente
     @PostMapping
-    public ResponseEntity<?> cadastrar(@Valid @RequestBody Cliente cliente) {
-        try {
-            Cliente clienteSalvo = clienteService.cadastrar(cliente);
-            return ResponseEntity.status(HttpStatus.CREATED).body(clienteSalvo);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro interno do servidor");
-        }
+    public ResponseEntity<ClienteResponseDTO> cadastrar(@Valid @RequestBody ClienteDTO dto) {
+        // Chama o serviço para cadastrar o cliente e retorna HTTP 201 (Created)
+        return ResponseEntity
+        .status(HttpStatus.CREATED)
+        .body(service.cadastrarCliente(dto));
     }
 
     /**
      * Listar todos os clientes ativos
      */
     @GetMapping
-    public ResponseEntity<List<Cliente>> listar() {
-        List<Cliente> clientes = clienteService.buscarClientesAtivos();
+    public ResponseEntity<List<ClienteResponseDTO>> listar() {
+        List<ClienteResponseDTO> clientes = service.listarClientesAtivos();
         return ResponseEntity.ok(clientes);
     }
 
@@ -49,7 +46,7 @@ public class ClienteController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
-        Optional<Cliente> cliente = clienteService.buscarPorId(id);
+        Optional<ClienteResponseDTO> cliente = service.buscarClientePorId(id);
         return cliente.isPresent() ? ResponseEntity.ok(cliente.get())
                                    : ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado");
     }
@@ -59,50 +56,35 @@ public class ClienteController {
      */
     @GetMapping("/email/{email}")
     public ResponseEntity<?> buscarPorEmail(@PathVariable String email) {
-        Optional<Cliente> cliente = clienteService.buscarPorEmail(email);
+        Optional<ClienteResponseDTO> cliente = service.buscarClientePorEmail(email);
         return cliente.isPresent() ? ResponseEntity.ok(cliente.get())
                                    : ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado");
     }
 
     /**
-     * Buscar clientes por nome (parte do nome)
+     * Atualizar cliente por ID
      */
-    @GetMapping("/nome/{nome}")
-    public ResponseEntity<List<Cliente>> buscarPorNome(@PathVariable String nome) {
-        return ResponseEntity.ok(clienteService.buscarPorNome(nome));
+    @PutMapping("/{id}")
+    public ResponseEntity<?> atualizar(@PathVariable Long id, @Valid @RequestBody ClienteDTO dto) {
+        try {
+            ClienteResponseDTO clienteAtualizado = service.atualizarCliente(id, dto);
+            return ResponseEntity.ok(clienteAtualizado);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado");
+        }
     }
 
     /**
-     * Buscar cliente por telefone
+     * Ativar ou desativar cliente
      */
-    @GetMapping("/telefone/{telefone}")
-    public ResponseEntity<?> buscarPorTelefone(@PathVariable String telefone) {
-        Optional<Cliente> cliente = clienteService.buscarPorTelefone(telefone);
-        return cliente.isPresent() ? ResponseEntity.ok(cliente.get())
-                                   : ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado");
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<?> ativarDesativar(@PathVariable Long id) {
+        try {
+            ClienteResponseDTO cliente = service.ativarDesativarCliente(id);
+            return ResponseEntity.ok(cliente);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado");
+        }
     }
 
-    /**
-     * Buscar clientes com pedidos
-     */
-    @GetMapping("/com-pedidos")
-    public ResponseEntity<List<Cliente>> buscarClientesComPedidos() {
-        return ResponseEntity.ok(clienteService.buscarClientesComPedidos());
-    }
-
-    /**
-     * Buscar clientes por cidade
-     */
-    @GetMapping("/cidade/{cidade}")
-    public ResponseEntity<List<Cliente>> buscarPorCidade(@PathVariable String cidade) {
-        return ResponseEntity.ok(clienteService.buscarPorCidade(cidade));
-    }
-
-    /**
-     * Contar clientes ativos
-     */
-    @GetMapping("/ativos/contar")
-    public ResponseEntity<Long> contarClientesAtivos() {
-        return ResponseEntity.ok(clienteService.contarClientesAtivos());
-    }
 }

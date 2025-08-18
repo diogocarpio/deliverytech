@@ -182,7 +182,7 @@ public class DataLoader implements CommandLineRunner {
         Pedido ped1 = new Pedido();
         ped1.setNumeroPedido("PED1234567890");
         ped1.setDataPedido(LocalDateTime.now());
-        ped1.setStatus("PENDENTE");
+        ped1.setStatus(StatusPedido.PENDENTE);
         ped1.setValorTotal(new BigDecimal("54.80"));
         ped1.setObservacoes("Sem cebola na pizza");
         ped1.setCliente(clienteRepository.findById(1L).orElse(null));
@@ -191,7 +191,7 @@ public class DataLoader implements CommandLineRunner {
         Pedido ped2 = new Pedido();
         ped2.setNumeroPedido("PED1234567891");
         ped2.setDataPedido(LocalDateTime.now());
-        ped2.setStatus("ENTREGUE");
+        ped2.setStatus(StatusPedido.ENTREGUE);
         ped2.setValorTotal(new BigDecimal("45.90"));
         ped2.setObservacoes(null);
         ped2.setCliente(clienteRepository.findById(2L).orElse(null));
@@ -200,7 +200,7 @@ public class DataLoader implements CommandLineRunner {
         Pedido ped3 = new Pedido();
         ped3.setNumeroPedido("PED1234567892");
         ped3.setDataPedido(LocalDateTime.now());
-        ped3.setStatus("ENTREGUE");
+        ped3.setStatus(StatusPedido.ENTREGUE);
         ped3.setValorTotal(new BigDecimal("78.80"));
         ped3.setObservacoes("wasabi à parte");
         ped3.setCliente(clienteRepository.findById(3L).orElse(null));
