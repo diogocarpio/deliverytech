@@ -10,7 +10,13 @@ import com.deliverytech.delivery_api.dto.PedidoResponseDTO;
 import com.deliverytech.delivery_api.service.PedidoService;
 import com.deliverytech.delivery_api.model.StatusPedido;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 import java.math.BigDecimal;
@@ -18,7 +24,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/pedidos")
-@CrossOrigin(origins = "*")
+@Tag(
+    name = "Pedidos",
+    description = "Gerenciamento de pedidos"
+)
 public class PedidoController {
     
     private final PedidoService service;
@@ -27,8 +36,25 @@ public class PedidoController {
         this.service = service;
     }
 
-    // Cria um novo pedido
     @PostMapping
+    @Operation(
+        summary = "Criar pedido",
+        description = "Cria um novo pedido com múltiplos itens"
+    )
+    @ApiResponses({
+        @ApiResponse(
+            responseCode = "201",
+            description = "Pedido criado com sucesso",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = PedidoDTO.class)
+            )
+        ),
+        @ApiResponse(
+            responseCode = "400",
+            description = "Dados inválidos"
+        )
+    })
     public ResponseEntity<PedidoResponseDTO> criar(@Valid @RequestBody PedidoDTO dto) {
         PedidoResponseDTO criado = service.criarPedido(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(criado);
