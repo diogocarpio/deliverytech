@@ -1,30 +1,38 @@
 package com.deliverytech.delivery_api.dto;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
-// DTO usado para receber dados de um pedido via requisição
+import com.deliverytech.delivery_api.validation.ValidCEP;
+
+// Classe DTO para representar os dados de um pedido na API
 public class PedidoDTO {
 
-    // ID do cliente que está fazendo o pedido – obrigatório
-    @NotNull
+    // ID do cliente que fez o pedido — obrigatório (não pode ser nulo)
+    @NotNull(message = "ID do cliente é obrigatório")
     private Long clienteId;
 
-    // ID do restaurante onde o pedido será feito – obrigatório
-    @NotNull
+    // ID do restaurante onde o pedido foi feito — obrigatório
+    @NotNull(message = "ID do restaurante é obrigatório")
     private Long restauranteId;
 
-    // Endereço para entrega do pedido – obrigatório e não pode ser vazio
-    @NotBlank
+    // Lista de itens do pedido — deve ter pelo menos um item
+    @NotEmpty(message = "Pedido deve ter pelo menos um item")
+    private List<ItemPedidoDTO> itens;
+
+    // Endereço de entrega — obrigatório e não pode ser vazio
+    @NotBlank(message = "Endereço de entrega é obrigatório")
     private String enderecoEntrega;
 
-    // Lista dos itens do pedido – obrigatório e deve ter ao menos um item
-    @Valid // Valida os objetos dentro da lista
-    @NotEmpty
-    private List<ItemPedidoDTO> itens;
+    // CEP de entrega — validado pela anotação customizada @ValidCEP
+    @ValidCEP
+    private String cepEntrega;
+
+    // Forma de pagamento — obrigatório e não pode ser vazio
+    @NotBlank(message = "Forma de pagamento é obrigatória")
+    private String formaPagamento;
 
     // Getters e Setters
     public Long getClienteId() {
@@ -43,6 +51,14 @@ public class PedidoDTO {
         this.restauranteId = restauranteId;
     }
 
+    public List<ItemPedidoDTO> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItemPedidoDTO> itens) {
+        this.itens = itens;
+    }
+
     public String getEnderecoEntrega() {
         return enderecoEntrega;
     }
@@ -51,11 +67,19 @@ public class PedidoDTO {
         this.enderecoEntrega = enderecoEntrega;
     }
 
-    public List<ItemPedidoDTO> getItens() {
-        return itens;
+    public String getCepEntrega() {
+        return cepEntrega;
     }
 
-    public void setItens(List<ItemPedidoDTO> itens) {
-        this.itens = itens;
+    public void setCepEntrega(String cepEntrega) {
+        this.cepEntrega = cepEntrega;
+    }
+
+    public String getFormaPagamento() {
+        return formaPagamento;
+    }
+
+    public void setFormaPagamento(String formaPagamento) {
+        this.formaPagamento = formaPagamento;
     }
 }

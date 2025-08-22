@@ -28,7 +28,7 @@ public class ClienteServiceImpl implements ClienteService{
     public ClienteResponseDTO cadastrarCliente(ClienteDTO dto) {
         // 1️⃣ Verifica se já existe um cliente com o e-mail informado
         if (clienteRepository.existsByEmail(dto.getEmail())) {
-            throw new BusinessException("Email já cadastrado: " + dto.getEmail());
+            throw new BusinessException("Email já cadastrado: " + dto.getEmail(), "bussines.exception");
         }
 
         // 2️⃣ Converte o DTO recebido para a entidade Cliente
@@ -75,7 +75,7 @@ public class ClienteServiceImpl implements ClienteService{
         // Verifica se o e-mail foi alterado e se ja esta sendo usado por outro cliente
         if(!cliente.getEmail().equals(dto.getEmail()) &&
             clienteRepository.existsByEmail(dto.getEmail())){
-            throw new BusinessException("Email ja cadastrado: " + dto.getEmail());    
+            throw new BusinessException("Email ja cadastrado: " + dto.getEmail(), "bussines.exception");    
         }
 
         // Atualiza os campos permitidos com os dados do DTO

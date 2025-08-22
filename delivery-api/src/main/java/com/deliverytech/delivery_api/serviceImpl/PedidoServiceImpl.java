@@ -50,7 +50,7 @@ public class PedidoServiceImpl implements PedidoService {
 
         // Verifica se o cliente esta ativo
         if(!cliente.isAtivo()) {
-            throw new BusinessException("Cliente inativo");
+            throw new BusinessException("Cliente inativo", "bussines.exception");
         }
 
         // Busca o restaurante pelo ID informado no DTO
@@ -59,7 +59,7 @@ public class PedidoServiceImpl implements PedidoService {
 
         // Verifica se o restaurante esta ativo
         if(!restaurante.isAtivo()) {
-            throw new BusinessException("Restaurante indisponível");
+            throw new BusinessException("Restaurante indisponível", "bussines.exception");
         }
 
         Pedido pedido = modelMapper.map(dto, Pedido.class);

@@ -1,29 +1,32 @@
 package com.deliverytech.delivery_api.dto;
 
+import com.deliverytech.delivery_api.validation.ValidCEP;
+import com.deliverytech.delivery_api.validation.ValidTelefone;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+// Classe DTO usada para transferir dados de Restaurante via API
 public class RestauranteDTO {
 
-    private Long id;        // Campo id, usado na resposta do POST
-    private String nome;    // Campo nome, obrigatório
-    private String categoria; // Campo categoria, obrigatório
+    @NotBlank(message = "Nome é obrigatório")
+    @Size(min = 2, max = 100, message = "Nome deve ter entre 2 e 100 caracteres")
+    private String nome;
 
-    // Construtor vazio
-    public RestauranteDTO() {}
+    @ValidTelefone
+    private String telefone;
 
-    // Construtor completo (opcional)
-    public RestauranteDTO(Long id, String nome, String categoria) {
-        this.id = id;
-        this.nome = nome;
-        this.categoria = categoria;
-    }
+    @ValidCEP
+    private String cep;
 
-    // Getters e setters
-    public Long getId() {
-        return id;
-    }
+    @NotBlank(message = "Endereço é obrigatório")
+    private String endereco;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @Valid
+    private String categoria;
+
+    // Getters e Setters
 
     public String getNome() {
         return nome;
@@ -33,22 +36,36 @@ public class RestauranteDTO {
         this.nome = nome;
     }
 
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
     public String getCategoria() {
         return categoria;
     }
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
-    }
-
-    // toString opcional para facilitar debug
-    @Override
-    public String toString() {
-        return "RestauranteDTO{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", categoria='" + categoria + '\'' +
-                '}';
     }
 }
 
