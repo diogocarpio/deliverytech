@@ -3,6 +3,9 @@ package com.deliverytech.delivery_api.controller;
 import com.deliverytech.delivery_api.dto.ClienteDTO;
 import com.deliverytech.delivery_api.dto.ClienteResponseDTO;
 import com.deliverytech.delivery_api.service.ClienteService;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +19,8 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 public class ClienteController {
 
+    private static final Logger logger = LoggerFactory.getLogger(ClienteController.class);
+
     private final ClienteService service;
 
     // Construtor que recebe a dependência do serviço
@@ -26,7 +31,7 @@ public class ClienteController {
     // Endpoint POST para cadastrar um novo cliente
     @PostMapping
     public ResponseEntity<ClienteResponseDTO> cadastrar(@Valid @RequestBody ClienteDTO dto) {
-        // Chama o serviço para cadastrar o cliente e retorna HTTP 201 (Created)
+        logger.info(" Cadastra o cliente e retorna HTTP 201 (Created)");
         return ResponseEntity
         .status(HttpStatus.CREATED)
         .body(service.cadastrarCliente(dto));
@@ -37,6 +42,7 @@ public class ClienteController {
      */
     @GetMapping
     public ResponseEntity<List<ClienteResponseDTO>> listar() {
+        logger.info("Lista todos os clientes ativos");
         List<ClienteResponseDTO> clientes = service.listarClientesAtivos();
         return ResponseEntity.ok(clientes);
     }
