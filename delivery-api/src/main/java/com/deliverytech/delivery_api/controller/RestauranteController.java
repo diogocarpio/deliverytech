@@ -7,12 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import com.deliverytech.delivery_api.dto.RestauranteDTO;
 import com.deliverytech.delivery_api.exception.ConflictException;
+import com.deliverytech.delivery_api.exception.EntityNotFoundException;
 import com.deliverytech.delivery_api.service.RestauranteService;
-
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 import jakarta.validation.Valid;
 
@@ -20,7 +17,7 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/restaurantes")
 @Tag(name = "Restaurantes")
 public class RestauranteController {
-        /* 
+        
     private final RestauranteService service;
 
     // Injeta o serviço via construtor (boa prática para testes e imutabilidade)
@@ -55,7 +52,5 @@ public class RestauranteController {
         return ResponseEntity
             .status(HttpStatus.CREATED)
             .body(criado);  
-    } */
-
-    // Outros métodos...
+    } 
 }

@@ -24,6 +24,13 @@ public class ClienteDTO {
     @NotBlank
     private String endereco;
 
+    public ClienteDTO(String nome, String email, String telefone, String endereco) {
+        this.nome = nome;
+        this.email = email;
+        this.telefone = telefone;
+        this.endereco = endereco;
+    }
+    
     // Getters e Setters
     public String getNome() {
         return nome;

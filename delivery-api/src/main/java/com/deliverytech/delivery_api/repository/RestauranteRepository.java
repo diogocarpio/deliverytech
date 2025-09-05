@@ -20,4 +20,6 @@ public interface RestauranteRepository extends JpaRepository<Restaurante, Long> 
         "LEFT JOIN Pedido p ON r.id = p.restaurante.id " +
         "GROUP BY r.id, r.nome")
     List<RelatorioVendas> relatorioVendasPorRestaurante();
+
+    boolean existsByNome(String nome);
 }
