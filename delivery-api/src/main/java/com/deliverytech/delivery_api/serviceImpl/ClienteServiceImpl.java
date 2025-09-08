@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 
 import com.deliverytech.delivery_api.dto.ClienteDTO;
 import com.deliverytech.delivery_api.dto.ClienteResponseDTO;
@@ -23,6 +24,23 @@ public class ClienteServiceImpl implements ClienteService{
 
     @Autowired
     ModelMapper modelMapper;
+
+    @Cacheable("clientes")
+    public List<ClienteDTO> listarTodos() {
+       simulateDelay(); // simular demora
+       return clienteRepository.findAll().stream()
+            .map(ClienteDTO::new)
+            .toList();
+    }
+
+    private void simulateDelay() {
+        try {
+        Thread.sleep(3000);
+        } catch (InterruptedException e) {
+        // Ignora exceção
+        }
+
+    }
 
     @Override
     public ClienteResponseDTO cadastrarCliente(ClienteDTO dto) {

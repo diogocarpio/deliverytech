@@ -1,11 +1,15 @@
 package com.deliverytech.delivery_api.dto;
 
+import com.deliverytech.delivery_api.model.Cliente;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 // DTO (Data Transfer Object) usado para receber dados de cliente em requisições
 public class ClienteDTO {
+    
+    private Long id;
 
     // Nome obrigatório, não pode ser vazio ou nulo
     @NotBlank
@@ -30,8 +34,22 @@ public class ClienteDTO {
         this.telefone = telefone;
         this.endereco = endereco;
     }
+
+    public ClienteDTO(Cliente cliente) {
+        this.id = cliente.getId();
+        this.nome = cliente.getNome();
+        this.email = cliente.getEmail();
+    }
     
     // Getters e Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
     }
