@@ -14,12 +14,13 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
-          
+
       - name: Build with Maven # Adicionado: Etapa para compilar o projeto
         run: mvn clean install
+        working-directory: delivery-api
 
       - name: Upload do JAR
         uses: actions/upload-artifact@v4
         with:
           name: delivery-api
-          path: target/delivery-api.jar
+          path: deliveryapi/target/delivery-api.jar
