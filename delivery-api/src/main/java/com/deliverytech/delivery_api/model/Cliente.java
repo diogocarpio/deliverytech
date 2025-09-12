@@ -9,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Data
+@Table(name = "clientes")
 public class Cliente {
 
     @Id
@@ -16,10 +17,11 @@ public class Cliente {
     private Long id;
     private String nome;
     private String email;
-    private String telefone;
     private String endereco;
-    private boolean ativo;
+    private String telefone;
+    @Column(name = "data_cadastro")
     private LocalDateTime dataCadastro;
+    private boolean ativo;
 
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<>();

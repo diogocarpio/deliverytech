@@ -41,6 +41,9 @@ public class ClienteDTO {
         this.email = cliente.getEmail();
     }
     
+    public ClienteDTO() {
+    }
+
     // Getters e Setters
     public Long getId() {
         return id;

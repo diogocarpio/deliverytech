@@ -7,14 +7,19 @@ public class ClienteResponseDTO {
     private String email;
     private String telefone;
     private boolean ativo;
+    private String endereco;
 
     // Construtor com todos os campos
-    public ClienteResponseDTO(Long id, String nome, String email, String telefone, boolean ativo) {
+    public ClienteResponseDTO(Long id, String nome, String email, String telefone, boolean ativo, String endereco) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
         this.ativo = ativo;
+        this.endereco = endereco;
+    }
+
+    public ClienteResponseDTO() {
     }
 
     // Getters e Setters
@@ -56,5 +61,13 @@ public class ClienteResponseDTO {
 
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public String getEndereco(){
+        return endereco;
+    }
+
+    public void setEndereco(String endereco){
+        this.endereco = endereco;
     }
 }

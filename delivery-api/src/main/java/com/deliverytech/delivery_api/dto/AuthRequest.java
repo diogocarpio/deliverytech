@@ -14,8 +14,12 @@ public class AuthRequest {
     @Size(min = 3, message = "Senha deve ter pelo menos 3 caracteres")
     private String senha;
    
-    // Getters e setters
-   
+    public AuthRequest(String email, String senha) {
+      this.email = email;
+      this.senha = senha;
+   }
+
+   // Getters e setters
     public String getEmail() {
        return email;
     }

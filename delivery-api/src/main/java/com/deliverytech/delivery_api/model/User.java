@@ -1,5 +1,7 @@
 package com.deliverytech.delivery_api.model;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,22 +13,25 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Data  // gera getters e setters automaticamente
-@Table(name = "users") // ou outro nome que preferir
+@Table(name = "usuario") // ou outro nome que preferir
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(unique = true, nullable = false)
     private String email;
-
     @Column(nullable = false)
     private String senha;
-
     @Column(nullable = false)
     private String nome;
-    // se quiser roles no futuro, pode adicionar aqui
-    // private String role;
+    private String role;
+    private Boolean ativo;
+    @Column(name = "data_criacao")
+    private LocalDateTime dataCriacao;
+
+    @ManyToOne
+    @JoinColumn(name = "restaurante_id") // Nome da coluna FK no banco
+    private Restaurante restaurante;
 }
 

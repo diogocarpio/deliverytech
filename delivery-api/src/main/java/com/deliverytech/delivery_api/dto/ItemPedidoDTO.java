@@ -27,6 +27,18 @@ public class ItemPedidoDTO {
     // Campo opcional para observações adicionais do item (ex: "sem cebola")
     private String observacao;
 
+    public ItemPedidoDTO(Long produtoId, Integer quantidade, BigDecimal precoUnitario) {
+        this.produtoId = produtoId;
+        this.quantidade = quantidade;
+        this.precoUnitario = precoUnitario;
+    }
+
+    public ItemPedidoDTO(String observacao, BigDecimal precoUnitario, int quantidade) {
+        this.observacao = observacao;
+        this.precoUnitario = precoUnitario;
+        this.quantidade = quantidade;
+    }
+
     // Getters e Setters
     public Long getProdutoId() {
         return produtoId;

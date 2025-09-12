@@ -10,14 +10,19 @@ import java.util.List;
 
 @Entity
 @Data
+@Table(name = "pedidos")
 public class Pedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "numero_pedido")
     private String numeroPedido;
+    @Column(name = "data_pedido")
     private LocalDateTime dataPedido;
+    @Enumerated(EnumType.STRING)
     private StatusPedido status;
+    @Column(name = "valor_total")
     private BigDecimal valorTotal;
     private String observacoes;
 

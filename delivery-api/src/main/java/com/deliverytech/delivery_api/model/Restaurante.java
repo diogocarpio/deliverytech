@@ -9,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Data
+@Table(name = "restaurantes")
 public class Restaurante {
 
     @Id
@@ -18,6 +19,7 @@ public class Restaurante {
     private String categoria;
     private String endereco;
     private String telefone;
+    @Column(name = "taxa_entrega")
     private BigDecimal taxaEntrega;
     private BigDecimal avaliacao;
     private boolean ativo;

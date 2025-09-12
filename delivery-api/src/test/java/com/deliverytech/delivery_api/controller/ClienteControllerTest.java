@@ -37,7 +37,7 @@ class ClienteControllerTest {
     @Test
     void deveCadastrarClienteComSucesso() throws Exception {
         ClienteDTO dto = new ClienteDTO("João", "joao@email.com", "12345678", "Rua A, 123 - São Paulo/SP");
-        ClienteResponseDTO response = new ClienteResponseDTO(1L, "João", "joao@email.com", "12345678", true);
+        ClienteResponseDTO response = new ClienteResponseDTO(1L, "João", "joao@email.com", "12345678", true, "Rua A");
 
         when(clienteService.cadastrarCliente(any(ClienteDTO.class))).thenReturn(response);
 
@@ -52,7 +52,7 @@ class ClienteControllerTest {
 
     @Test
     void deveListarClientesComSucesso() throws Exception {
-        ClienteResponseDTO cliente = new ClienteResponseDTO(1L, "Maria", "maria@email.com", "987654321", true);
+        ClienteResponseDTO cliente = new ClienteResponseDTO(1L, "Maria", "maria@email.com", "987654321", true, "Rua B");
         when(clienteService.listarClientesAtivos()).thenReturn(List.of(cliente));
 
         mockMvc.perform(get("/clientes")
@@ -63,7 +63,7 @@ class ClienteControllerTest {
 
     @Test
     void deveBuscarClientePorIdComSucesso() throws Exception {
-        ClienteResponseDTO cliente = new ClienteResponseDTO(1L, "Pedro", "pedro@email.com", "111222333", true);
+        ClienteResponseDTO cliente = new ClienteResponseDTO(1L, "Pedro", "pedro@email.com", "111222333", true, "Rua C");
         when(clienteService.buscarClientePorId(1L)).thenReturn(Optional.of(cliente));
 
         mockMvc.perform(get("/clientes/1"))
@@ -83,7 +83,7 @@ class ClienteControllerTest {
     @Test
     void deveAtualizarClienteComSucesso() throws Exception {
         ClienteDTO dto = new ClienteDTO("Carlos", "carlos@email.com", "555444333", "Rua A, 123 - São Paulo/SP");
-        ClienteResponseDTO atualizado = new ClienteResponseDTO(1L, "Carlos", "carlos@email.com", "555444333", true);
+        ClienteResponseDTO atualizado = new ClienteResponseDTO(1L, "Carlos", "carlos@email.com", "555444333", true, "Rua A");
 
         when(clienteService.atualizarCliente(eq(1L), any(ClienteDTO.class))).thenReturn(atualizado);
 

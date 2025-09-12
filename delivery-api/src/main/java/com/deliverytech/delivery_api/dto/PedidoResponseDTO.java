@@ -10,6 +10,7 @@ import lombok.Data;
 
 @Data
 public class PedidoResponseDTO {
+    
     private Long id;
     private String numeroPedido;
     private LocalDateTime dataPedido;
@@ -19,4 +20,13 @@ public class PedidoResponseDTO {
     private Long clienteId;
     private Long restauranteId;
     private List<ItemPedidoDTO> itens;
+
+    public PedidoResponseDTO() {
+    }
+
+    public PedidoResponseDTO(Long id, BigDecimal valorTotal, StatusPedido status) {
+        this.id = id;
+        this.valorTotal = valorTotal;
+        this.status = status;
+    }
 }
